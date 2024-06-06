@@ -99,8 +99,6 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
               cursorColor: Theme.of(context).primaryColor,
             ),
             Gaps.v16,
-
-            
             GestureDetector(
               //stateful widget에서는 context를 넘겨줄 필요가 없다.
               onTap: _onNextTap,

@@ -1,5 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tictokclone/constants/gaps.dart';
+import 'package:tictokclone/constants/sizes.dart';
+import 'package:tictokclone/feature/main_navigation/stf_screen.dart';
+import 'package:tictokclone/feature/main_navigation/widget/nav_tap.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -12,12 +17,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _selectedIndex = 0;
 
   final screens = [
-    const Center(
-      child: Text("Home"),
-    ),
-    const Center(
-      child: Text("Search"),
-    ),
+    StfScreen(key: GlobalKey()),
+    StfScreen(key: GlobalKey()),
+    Container(),
+    StfScreen(key: GlobalKey()),
+    StfScreen(key: GlobalKey()),
   ];
 
   void _onTap(int index) {
@@ -29,30 +33,62 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        //back ground 색이 선택때마다 변경한다 
-        type: BottomNavigationBarType.shifting,
-        onTap: _onTap,
-        currentIndex: _selectedIndex,
-        // selectedItemColor: Theme.of(context).primaryColor,
-        items: const [
-          BottomNavigationBarItem(
-              icon: FaIcon(
-                FontAwesomeIcons.house,
-              ),
-              label: "Home",
-              tooltip: "What are you?",
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.magnifyingGlass,
-            ),
-            label: "Search",
-            tooltip: "good",
-            backgroundColor: Colors.yellow,
+      body: Stack(
+        children: [
+          //navigaionbar에서 탭 이동후 다시 돌아왔을때 화면이 초기화되는것이 아니라 고객이 본 그 view를 그대로 볼수 있도록 
+          Offstage(
+            offstage: _selectedIndex != 0,
+            child: const StfScreen(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 1,
+            child: const StfScreen(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 3,
+            child: const StfScreen(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 4,
+            child: const StfScreen(),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.black,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            NavTab(
+              text: "Home",
+              icon: FontAwesomeIcons.house,
+              selectedIcon: FontAwesomeIcons.house,
+              isSelecte: _selectedIndex == 0,
+              onTap: () => _onTap(0),
+            ),
+            NavTab(
+              text: "Discover",
+              icon: FontAwesomeIcons.compass,
+              selectedIcon: FontAwesomeIcons.solidCompass,
+              isSelecte: _selectedIndex == 1,
+              onTap: () => _onTap(1),
+            ),
+            NavTab(
+              text: "Inbox",
+              icon: FontAwesomeIcons.message,
+              selectedIcon: FontAwesomeIcons.solidMessage,
+              isSelecte: _selectedIndex == 3,
+              onTap: () => _onTap(3),
+            ),
+            NavTab(
+              text: "Profile",
+              icon: FontAwesomeIcons.user,
+              selectedIcon: FontAwesomeIcons.solidUser,
+              isSelecte: _selectedIndex == 4,
+              onTap: () => _onTap(4),
+            ),
+          ],
+        ),
       ),
     );
   }

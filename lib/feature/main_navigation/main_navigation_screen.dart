@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/main_navigation/stf_screen.dart';
 import 'package:tictokclone/feature/main_navigation/widget/nav_tap.dart';
+import 'package:tictokclone/feature/main_navigation/widget/post_video_button.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -16,18 +18,24 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _selectedIndex = 0;
 
-  final screens = [
-    StfScreen(key: GlobalKey()),
-    StfScreen(key: GlobalKey()),
-    Container(),
-    StfScreen(key: GlobalKey()),
-    StfScreen(key: GlobalKey()),
-  ];
-
+//navigation일은 navigaion screen에서 처리를 해야함 button 위젯에서 처리하는건 좋지않
   void _onTap(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void _onPostVideoButton() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+          builder: (context) => Scaffold(
+                appBar: AppBar(
+                  title: const Text("Record video"),
+                ),
+              ),
+          //fullscreen으로 만들겠다.
+          fullscreenDialog: true),
+    );
   }
 
   @override
@@ -35,7 +43,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          //navigaionbar에서 탭 이동후 다시 돌아왔을때 화면이 초기화되는것이 아니라 고객이 본 그 view를 그대로 볼수 있도록 
+          //navigaionbar에서 탭 이동후 다시 돌아왔을때 화면이 초기화되는것이 아니라 고객이 본 그 view를 그대로 볼수 있도록
           Offstage(
             offstage: _selectedIndex != 0,
             child: const StfScreen(),
@@ -73,6 +81,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               isSelecte: _selectedIndex == 1,
               onTap: () => _onTap(1),
             ),
+            GestureDetector(
+                onTap: _onPostVideoButton, child: const PostVideoButton()),
             NavTab(
               text: "Inbox",
               icon: FontAwesomeIcons.message,

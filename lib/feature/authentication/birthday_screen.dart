@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
-import 'package:tictokclone/feature/authentication/email_screen.dart';
 import 'package:tictokclone/feature/authentication/widget/form_button.dart';
 import 'package:tictokclone/feature/onboarding/interests_screen.dart';
 
@@ -37,12 +36,16 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
   }
 
   void _onNextTap() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const InterestScreen(),
-      ),
-    );
+     Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const InterestScreen(),
+          ),
+          (route) {
+            print(route);
+            return false;
+          },
+        );
   }
 
   @override

@@ -93,7 +93,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 keyboardType: TextInputType.emailAddress,
                 //자동완성
                 autocorrect: false,
-                 // onSubmitted , onEditingComplete 차이점 확인하기
+                // onSubmitted , onEditingComplete 차이점 확인하기
                 onEditingComplete: _onSubmit,
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -105,9 +105,10 @@ class _EmailScreenState extends State<EmailScreen> {
                   ),
                   //텍스트 박스를 클릭할때
                   focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.grey.shade400,
-                  )),
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
                   hintText: "Email",
                   errorText: _isEmailValid(),
                 ),

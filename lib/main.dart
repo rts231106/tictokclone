@@ -31,7 +31,7 @@ class TicTok extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         primaryColor: const Color(0xFFe9435A),
       ),
-      home:  MainNavigationScreen(),
+      home: const MainNavigationScreen(),
     );
   }
 }

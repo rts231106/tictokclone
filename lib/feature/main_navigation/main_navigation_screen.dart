@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
-import 'package:tictokclone/feature/main_navigation/stf_screen.dart';
 import 'package:tictokclone/feature/main_navigation/widget/nav_tap.dart';
 import 'package:tictokclone/feature/main_navigation/widget/post_video_button.dart';
+import 'package:tictokclone/feature/videos/video_timeline_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -38,6 +38,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     );
   }
 
+  void _onCommentsTap(BuildContext context) {
+    showModalBottomSheet(context: context, builder: (context) => Container());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,20 +50,20 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           //navigaionbar에서 탭 이동후 다시 돌아왔을때 화면이 초기화되는것이 아니라 고객이 본 그 view를 그대로 볼수 있도록
           Offstage(
             offstage: _selectedIndex != 0,
-            child: const StfScreen(),
+            child: const VideoTimelineScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 1,
-            child: const StfScreen(),
+            child: Container(),
           ),
           Offstage(
             offstage: _selectedIndex != 3,
-            child: const StfScreen(),
+            child: Container(),
           ),
           Offstage(
             offstage: _selectedIndex != 4,
-            child: const StfScreen(),
-          ),
+            child: Container(),
+          )
         ],
       ),
       bottomNavigationBar: BottomAppBar(

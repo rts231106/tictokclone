@@ -12,7 +12,7 @@ class VideoPost extends StatefulWidget {
   const VideoPost({
     super.key,
     required this.onVideoFinished,
-        required this.index,
+    required this.index,
   });
 
   @override
@@ -20,8 +20,8 @@ class VideoPost extends StatefulWidget {
 }
 
 class _VideoPostState extends State<VideoPost> {
-    final VideoPlayerController _videoPlayerController =
-      VideoPlayerController.asset("assets/videos/video.mp4");
+  final VideoPlayerController _videoPlayerController =
+      VideoPlayerController.asset("lib/assets/video/movieflix.webm");
 
   void _onVideoChange() {
     if (_videoPlayerController.value.isInitialized) {
@@ -49,7 +49,8 @@ class _VideoPostState extends State<VideoPost> {
     _videoPlayerController.dispose();
     super.dispose();
   }
-    void _onVisibilityChanged(VisibilityInfo info) {
+
+  void _onVisibilityChanged(VisibilityInfo info) {
     if (info.visibleFraction == 1 && !_videoPlayerController.value.isPlaying) {
       _videoPlayerController.play();
     }
@@ -62,7 +63,6 @@ class _VideoPostState extends State<VideoPost> {
       _videoPlayerController.play();
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -91,12 +91,11 @@ class _VideoPostState extends State<VideoPost> {
                   color: Colors.white,
                   size: Sizes.size52,
                 ),
-                              ),
+              ),
             ),
           )
         ],
       ),
-
     );
   }
 }

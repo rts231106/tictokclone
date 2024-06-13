@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/videos/widgets.dart/video_button.dart';
+import 'package:tictokclone/feature/videos/widgets.dart/video_comments.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -92,6 +94,20 @@ class _VideoPostState extends State<VideoPost>
     });
   }
 
+  void _onCommentsTap(BuildContext context) async {
+    if (_videoPlayerController.value.isPlaying == true) {
+      _onTogglePause();
+    }
+    //자동으로 뒷 배경을 어둡게 만들고 아래서 댓글 창을 올릴 수 있음
+    await showModalBottomSheet(
+        //barrierColor: Colors.red, 댓글 위에 있는 배경 색 바꾸기
+        //videocomments의 scafford 색 따라가게 됨 
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) => const VideoComments());
+    _onTogglePause();
+  }
+
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
@@ -160,12 +176,12 @@ class _VideoPostState extends State<VideoPost>
               ],
             ),
           ),
-          const Positioned(
+          Positioned(
             bottom: 20,
             right: 10,
             child: Column(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
@@ -175,17 +191,20 @@ class _VideoPostState extends State<VideoPost>
                   child: Text("니꼬"),
                 ),
                 Gaps.v24,
-                VideoButton(
+                const VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
                   text: "2.9M",
                 ),
                 Gaps.v24,
-                VideoButton(
-                  icon: FontAwesomeIcons.solidComment,
-                  text: "33K",
+                GestureDetector(
+                  onTap: () => _onCommentsTap(context),
+                  child: const VideoButton(
+                    icon: FontAwesomeIcons.solidComment,
+                    text: "33K",
+                  ),
                 ),
                 Gaps.v24,
-                VideoButton(
+                const VideoButton(
                   icon: FontAwesomeIcons.share,
                   text: "Share",
                 )

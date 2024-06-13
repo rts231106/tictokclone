@@ -12,8 +12,24 @@ class VideoComments extends StatefulWidget {
 }
 
 class _VideoCommentsState extends State<VideoComments> {
+  bool _isWriting = false;
+
   void _conClosePressed() {
     Navigator.of(context).pop();
+  }
+
+//키보드 왜 선택했을 경우 비활성화
+  void _stopWriting() {
+    FocusScope.of(context).unfocus();
+    setState(() {
+      _isWriting = false;
+    });
+  }
+
+  void _onStartWriting() {
+    setState(() {
+      _isWriting = true;
+    });
   }
 
   @override
@@ -41,89 +57,98 @@ class _VideoCommentsState extends State<VideoComments> {
             ),
           ],
         ),
-        body: Stack(
-          children: [
-            ListView.separated(
-              separatorBuilder: (context, index) => Gaps.v20,
-              padding: const EdgeInsets.symmetric(
-                vertical: Sizes.size10,
-                horizontal: Sizes.size16,
-              ),
-              itemCount: 10,
-              itemBuilder: (context, index) => Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CircleAvatar(
-                      radius: 18,
-                      child: Text("d"),
-                    ),
-                    Gaps.h10,
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+        body: GestureDetector(
+          onTap: _stopWriting,
+          child: Stack(
+            children: [
+              ListView.separated(
+                separatorBuilder: (context, index) => Gaps.v20,
+                padding: const EdgeInsets.symmetric(
+                  vertical: Sizes.size10,
+                  horizontal: Sizes.size16,
+                ),
+                itemCount: 10,
+                itemBuilder: (context, index) => Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CircleAvatar(
+                        radius: 18,
+                        child: Text("d"),
+                      ),
+                      Gaps.h10,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "data",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: Sizes.size14,
+                                color: Colors.grey.shade500,
+                              ),
+                            ),
+                            Gaps.v3,
+                            const Text(
+                                "asdalskdjaslkdjaslkdjaslkjdaskldjaslkdjaslkjdlaksjdaslkjdalksj")
+                          ],
+                        ),
+                      ),
+                      Gaps.h10,
+                      Column(
                         children: [
+                          FaIcon(
+                            FontAwesomeIcons.heart,
+                            size: Sizes.size20,
+                            color: Colors.grey.shade500,
+                          ),
+                          Gaps.v2,
                           Text(
-                            "data",
+                            "52.2k",
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: Sizes.size14,
                               color: Colors.grey.shade500,
                             ),
                           ),
-                          Gaps.v3,
-                          const Text(
-                              "asdalskdjaslkdjaslkdjaslkjdaskldjaslkdjaslkjdlaksjdaslkjdalksj")
                         ],
-                      ),
-                    ),
-                    Gaps.h10,
-                    Column(
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.heart,
-                          size: Sizes.size20,
-                          color: Colors.grey.shade500,
-                        ),
-                        Gaps.v2,
-                        Text(
-                          "52.2k",
-                          style: TextStyle(
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              // 휴대 기기에 대한 정보를 알려줌 mediaQAuery
-              width: size.width,
-              child: BottomAppBar(
-                padding: const EdgeInsets.only(
-                  left: Sizes.size16,
-                  right: Sizes.size16,
-                  bottom: Sizes.size10,
-                  top: Sizes.size8,
-                ),
-                color: Colors.white,
-                surfaceTintColor: Colors.white,
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 18,
-                      backgroundColor: Colors.grey.shade500,
-                      foregroundColor: Colors.white,
-                      child: const Text("d"),
-                    ),
-                    Gaps.h10,
-                    Expanded(
-                      child: TextField(
-                        cursorColor: Theme.of(context).primaryColor,
-                        decoration: InputDecoration(
+              Positioned(
+                bottom: 0,
+                // 휴대 기기에 대한 정보를 알려줌 mediaQAuery
+                width: size.width,
+                child: BottomAppBar(
+                  padding: const EdgeInsets.only(
+                    left: Sizes.size16,
+                    right: Sizes.size16,
+                    bottom: Sizes.size10,
+                    top: Sizes.size8,
+                  ),
+                  color: Colors.white,
+                  surfaceTintColor: Colors.white,
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey.shade500,
+                        foregroundColor: Colors.white,
+                        child: const Text("d"),
+                      ),
+                      Gaps.h10,
+                      Expanded(
+                        //작은 사이즈로 변경을 원한다면 textfield를 Sizedbox 위젯으로 감싸면됨
+                        child: TextField(
+                          onTap: _onStartWriting,
+                          //textInputAction 으로 new 라인 만들때 expands는 true 최소줄과 최대줄을 설
+                          expands: true,
+                          minLines: null,
+                          maxLines: null,
+                          textInputAction: TextInputAction.newline,
+                          cursorColor: Theme.of(context).primaryColor,
+                          decoration: InputDecoration(
                             hintText: "Write a comment...",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(
@@ -136,14 +161,50 @@ class _VideoCommentsState extends State<VideoComments> {
                             contentPadding: const EdgeInsets.symmetric(
                               vertical: Sizes.size12,
                               horizontal: Sizes.size10,
-                            )),
-                      ),
-                    )
-                  ],
+                            ),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.only(
+                                right: Sizes.size14,
+                              ),
+                              child: Row(
+                                //Row의 크기를 가장 작게만들어 주는 것
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  FaIcon(
+                                    FontAwesomeIcons.at,
+                                    color: Colors.grey.shade900,
+                                  ),
+                                  Gaps.v12,
+                                  FaIcon(
+                                    FontAwesomeIcons.gift,
+                                    color: Colors.grey.shade900,
+                                  ),
+                                  Gaps.v12,
+                                  FaIcon(
+                                    FontAwesomeIcons.faceSmile,
+                                    color: Colors.grey.shade900,
+                                  ),
+                                  Gaps.v12,
+                                  if (_isWriting)
+                                    GestureDetector(
+                                      onTap: _stopWriting,
+                                      child: FaIcon(
+                                        FontAwesomeIcons.circleArrowUp,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

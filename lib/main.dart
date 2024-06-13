@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tictokclone/constants/sizes.dart';
-import 'package:tictokclone/feature/authentication/sign_up_screen.dart';
 import 'package:tictokclone/feature/main_navigation/main_navigation_screen.dart';
-import 'package:tictokclone/feature/onboarding/interests_screen.dart';
 
 void main() {
   runApp(const TicTok());

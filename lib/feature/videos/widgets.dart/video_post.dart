@@ -104,6 +104,8 @@ class _VideoPostState extends State<VideoPost>
         //videocomments의 scafford 색 따라가게 됨 
         backgroundColor: Colors.transparent,
         context: context,
+        //댓글창의 높이를 변경할 수 있
+        isScrollControlled: true,
         builder: (context) => const VideoComments());
     _onTogglePause();
   }

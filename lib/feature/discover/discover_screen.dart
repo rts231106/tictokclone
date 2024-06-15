@@ -16,18 +16,42 @@ final tabs = [
   "Brands",
 ];
 
-class DiscoverScreen extends StatelessWidget {
+class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
+
+  @override
+  State<DiscoverScreen> createState() => _DiscoverScreenState();
+}
+
+class _DiscoverScreenState extends State<DiscoverScreen> {
+  final TextEditingController _textEditingController =
+      TextEditingController(text: "initial Text");
+
+  void _onSearchChaged(String value) {}
+
+  void _onSearchSubmitted(String value) {}
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 1,
           surfaceTintColor: Colors.white,
-          title: const Text("Discover"),
+          title: CupertinoSearchTextField(
+            controller: _textEditingController,
+            onChanged: _onSearchChaged,
+            onSubmitted: _onSearchSubmitted,
+          ),
           //bottom은 자식요소의 크기를 제한하지 않는 위젯 preferred widget 개념 화인하기 바로 Container는 사용 하지 못한다
           //Tap controller 가 필요
           bottom: TabBar(
@@ -51,6 +75,7 @@ class DiscoverScreen extends StatelessWidget {
         body: TabBarView(
           children: [
             GridView.builder(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               padding: const EdgeInsets.all(
                 Sizes.size6,
               ),

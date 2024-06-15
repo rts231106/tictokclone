@@ -15,6 +15,9 @@ class TicTok extends StatelessWidget {
     return MaterialApp(
       title: 'TikTok Clone',
       theme: ThemeData(
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color(0xFFe9435A),
+        ),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
           foregroundColor: Colors.black,

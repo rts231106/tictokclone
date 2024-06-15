@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictokclone/constants/gaps.dart';
@@ -63,13 +64,18 @@ class DiscoverScreen extends StatelessWidget {
               ),
               itemBuilder: (context, index) => Column(
                 children: [
-                  AspectRatio(
-                    aspectRatio: 9 / 16,
-                    child: FadeInImage.assetNetwork(
-                      fit: BoxFit.cover,
-                      placeholder: "lib/assets/images/cat.png",
-                      image:
-                          "https://plus.unsplash.com/premium_photo-1715071976245-b4ab72b6c48b?q=80&w=2188&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  Container(
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Sizes.size4)),
+                    child: AspectRatio(
+                      aspectRatio: 9 / 16,
+                      child: FadeInImage.assetNetwork(
+                        fit: BoxFit.cover,
+                        placeholder: "lib/assets/images/cat.png",
+                        image:
+                            "https://plus.unsplash.com/premium_photo-1715071976245-b4ab72b6c48b?q=80&w=2188&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                      ),
                     ),
                   ),
                   Gaps.v10,

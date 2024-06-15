@@ -4,11 +4,19 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictokclone/constants/sizes.dart';
+import 'package:tictokclone/feature/inbox/activity_scree.dart';
 
 class InBoxScreen extends StatelessWidget {
   const InBoxScreen({super.key});
 
   void _onDmPressed() {}
+  void _onActivityTap(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const ActivityScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +37,17 @@ class InBoxScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          // 다양한 기능이 있음 Text 해보기 
-          const ListTile(
-            title: Text(
+          // 다양한 기능이 있음 Text 해보기
+          ListTile(
+            onTap: () => _onActivityTap(context),
+            title: const Text(
               "Activity",
               style: TextStyle(
                 fontSize: Sizes.size16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            trailing: FaIcon(
+            trailing: const FaIcon(
               FontAwesomeIcons.chevronRight,
               size: Sizes.size16,
               color: Colors.black,

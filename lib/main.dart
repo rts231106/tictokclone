@@ -18,6 +18,9 @@ class TicTok extends StatelessWidget {
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color(0xFFe9435A),
         ),
+        //splash 반응이 반영되지 않도록 하는 법(전체적으로)
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         appBarTheme: const AppBarTheme(
           centerTitle: true,
           foregroundColor: Colors.black,

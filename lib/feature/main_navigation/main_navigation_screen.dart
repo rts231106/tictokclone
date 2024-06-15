@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
+import 'package:tictokclone/feature/discover/discover_screen.dart';
 import 'package:tictokclone/feature/main_navigation/widget/nav_tap.dart';
 import 'package:tictokclone/feature/main_navigation/widget/post_video_button.dart';
 import 'package:tictokclone/feature/videos/video_timeline_screen.dart';
@@ -16,7 +17,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
 //navigation일은 navigaion screen에서 처리를 해야함 button 위젯에서 처리하는건 좋지않
   void _onTap(int index) {
@@ -57,7 +58,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 1,
-            child: Container(),
+            child: const DiscoverScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 3,

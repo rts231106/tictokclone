@@ -79,6 +79,9 @@ class _VideoPostState extends State<VideoPost>
     if (info.visibleFraction == 1 && !_videoPlayerController.value.isPlaying) {
       _videoPlayerController.play();
     }
+    if (_videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
+      _onTogglePause();
+    }
   }
 
   void _onTogglePause() {
@@ -101,7 +104,7 @@ class _VideoPostState extends State<VideoPost>
     //자동으로 뒷 배경을 어둡게 만들고 아래서 댓글 창을 올릴 수 있음
     await showModalBottomSheet(
         //barrierColor: Colors.red, 댓글 위에 있는 배경 색 바꾸기
-        //videocomments의 scafford 색 따라가게 됨 
+        //videocomments의 scafford 색 따라가게 됨
         backgroundColor: Colors.transparent,
         context: context,
         //댓글창의 높이를 변경할 수 있

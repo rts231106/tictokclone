@@ -43,11 +43,9 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _initVideoPlayer() async {
-    _videoPlayerController =
-        VideoPlayerController.asset("lib/assets/video/Nvd.mp4");
+    _videoPlayerController =VideoPlayerController.asset("lib/assets/video/Nvd.mp4");
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
-
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }

@@ -18,7 +18,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 3;
 
 //navigation일은 navigaion screen에서 처리를 해야함 button 위젯에서 처리하는건 좋지않
   void _onTap(int index) {

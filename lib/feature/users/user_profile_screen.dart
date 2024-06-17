@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tictokclone/constants/sizes.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
@@ -15,8 +16,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       //slivers  scroll view의 일부 scroll할때 사용하는것
       slivers: [
         SliverAppBar(
-          floating: true,
-          stretch: true,
+          pinned: true,
           backgroundColor: Colors.teal,
           title: const Text("data"),
           collapsedHeight: 80,
@@ -36,9 +36,39 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         ),
         SliverFixedExtentList(
           delegate: SliverChildBuilderDelegate(
-            (context, index) => Container(),
+            childCount: 50,
+            (context, index) => Container(
+              color: Colors.teal[100 * (index % 9)],
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  ":dsaldkj $index",
+                ),
+              ),
+            ),
           ),
+          //item 크기
           itemExtent: 100,
+        ),
+        SliverGrid(
+          delegate: SliverChildBuilderDelegate(
+            childCount: 20,
+            (context, index) => Container(
+              color: Colors.amber[100 * (index % 9)],
+              child: const Align(
+                alignment: Alignment.center,
+                child: Text(
+                  ":dsaldkj",
+                ),
+              ),
+            ),
+          ),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 100,
+            mainAxisSpacing: Sizes.size20,
+            crossAxisSpacing: Sizes.size20,
+            childAspectRatio: 1,
+          ),
         ),
       ],
     );

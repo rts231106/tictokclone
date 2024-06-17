@@ -50,6 +50,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           //item 크기
           itemExtent: 100,
         ),
+        SliverPersistentHeader(
+          delegate: CustomDelegate(),
+          pinned: true,
+        ),
         SliverGrid(
           delegate: SliverChildBuilderDelegate(
             childCount: 20,
@@ -72,5 +76,36 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         ),
       ],
     );
+  }
+}
+
+class CustomDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Colors.indigo,
+      //보모의 최대 크
+      child: const FractionallySizedBox(
+        heightFactor: 1,
+        child: Center(
+          child: Text("Title"),
+        ),
+      ),
+    );
+  }
+
+//최대높이
+  @override
+  double get maxExtent => 100;
+//최저높이
+  @override
+  double get minExtent => 100;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+// flutter에게 우리 persistent header가 보여져야 되는지 알려주는 method
+
+    return false;
   }
 }

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tictokclone/constants/sizes.dart';
-import 'package:tictokclone/feature/inbox/activity_scree.dart';
-import 'package:tictokclone/feature/inbox/inbox_screen.dart';
-import 'package:tictokclone/feature/main_navigation/main_navigation_screen.dart';
 import 'package:tictokclone/feature/videos/video_recording_screen.dart';
 
 void main() {

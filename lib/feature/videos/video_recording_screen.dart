@@ -120,6 +120,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     _progressAnimationController.reset();
 
     final video = await _cameraController.stopVideoRecording();
+
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -259,6 +261,6 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                     ),
                   ],
                 ),
-        ));
+        ),);
   }
 }

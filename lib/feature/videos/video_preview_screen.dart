@@ -9,10 +9,12 @@ import 'package:video_player/video_player.dart';
 
 class VideoPreviewScreen extends StatefulWidget {
   final XFile video;
+  final bool isPicked;
 
   const VideoPreviewScreen({
     super.key,
     required this.video,
+    required this.isPicked,
   });
 
   @override
@@ -62,23 +64,23 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
     String newFilePath;
 
 // 파일 경로가 .temp로 끝나는지 확인
-if (widget.video.path.endsWith(".temp")) {
+    if (widget.video.path.endsWith(".temp")) {
 // 임시 파일을 비디오 파일로 변환
-newFilePath = await convertTempFileToVideo(widget.video.path);
-} else {
+      newFilePath = await convertTempFileToVideo(widget.video.path);
+    } else {
 // 변환할 필요가 없는 경우
-newFilePath = widget.video.path;
-}
+      newFilePath = widget.video.path;
+    }
 
 // 갤러리에 저장
-// 갤러리에 저장
-final result = await GallerySaver.saveVideo(newFilePath, albumName: "Tictok_Clone");
+    final result =
+        await GallerySaver.saveVideo(newFilePath, albumName: "Tictok_Clone");
 
-if (result == true) {
-_savedVideo = true;
-setState(() {});
-}
-}
+    if (result == true) {
+      _savedVideo = true;
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +88,7 @@ setState(() {});
       appBar: AppBar(
         title: const Text("preview"),
         actions: [
-          IconButton(
+          if(!widget.isPicked) IconButton(
             onPressed: _saveToGallery,
             icon: FaIcon(
               _savedVideo ? FontAwesomeIcons.check : FontAwesomeIcons.download,

@@ -19,7 +19,7 @@ class VideoRecordingScreen extends StatefulWidget {
 }
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   bool _hasPermission = false;
   bool _isSelfieMode = false;
 
@@ -46,6 +46,18 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
           lowerBound: 0.0,
           upperBound: 1.0);
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_hasPermission) return;
+    if (!_cameraController.value.isInitialized) return;
+    if (state == AppLifecycleState.inactive) {
+      _cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      initCamera();
+      setState(() {});
+    }
+  }
+
   Future<void> initCamera() async {
     final cameras = await availableCameras();
     if (cameras.isEmpty) return;
@@ -61,6 +73,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     await _cameraController.prepareForVideoRecording();
 
     _flashMode = _cameraController.value.flashMode;
+    setState(() {});
   }
 
   Future<void> initPermissions() async {
@@ -90,6 +103,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   void initState() {
     super.initState();
     initPermissions();
+    //user가 앱에서 벗어나면 우리가 알 수 있도록
+    WidgetsBinding.instance.addObserver(this);
     _progressAnimationController.addListener(() {
       setState(() {});
     });

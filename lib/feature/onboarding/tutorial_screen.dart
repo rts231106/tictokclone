@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/main_navigation/main_navigation_screen.dart';
+import 'package:tictokclone/feature/utils.dart';
 
 enum Direction { right, left }
 
@@ -44,18 +45,19 @@ class _TutorialScreenState extends State<TutorialScreen> {
     }
   }
 
-void _onEnterAppTap(){ 
-   Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>  MainNavigationScreen(),
-          ),
-          (route) {
-            print(route);
-            return false;
-          },
-        );
-}
+  void _onEnterAppTap() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const MainNavigationScreen(),
+      ),
+      (route) {
+        print(route);
+        return false;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //페이지가 몇개인지 설정해야 함 tabBarView의 padding 개수를 의미
@@ -117,7 +119,7 @@ void _onEnterAppTap(){
           ),
         ),
         bottomNavigationBar: BottomAppBar(
-          surfaceTintColor: Colors.white,
+          surfaceTintColor: isDarkMode(context) ? Colors.black : Colors.white,
           padding: const EdgeInsets.symmetric(
             vertical: Sizes.size14,
             horizontal: Sizes.size2,

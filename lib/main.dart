@@ -19,7 +19,7 @@ class TicTok extends StatelessWidget {
       title: 'TikTok Clone',
       themeMode: ThemeMode.system,
       theme: ThemeData(
-        textTheme: GoogleFonts.itimTextTheme(),
+        textTheme: Typography.blackMountainView,
         brightness: Brightness.light,
 
         textSelectionTheme: const TextSelectionThemeData(
@@ -46,15 +46,17 @@ class TicTok extends StatelessWidget {
         primaryColor: const Color(0xFFe9435A),
       ),
       darkTheme: ThemeData(
-          textTheme: GoogleFonts.itimTextTheme(
-            ThemeData(brightness: Brightness.dark).textTheme,
-          ),
-          scaffoldBackgroundColor: Colors.black,
-          primaryColor: const Color(0xFFe9435A),
-          brightness: Brightness.dark,
-          bottomAppBarTheme: BottomAppBarTheme(
-            color: Colors.grey.shade900,
-          )),
+        textTheme: Typography.whiteMountainView,
+        scaffoldBackgroundColor: Colors.black,
+        primaryColor: const Color(0xFFe9435A),
+        brightness: Brightness.dark,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey.shade900,
+        ),
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: Colors.grey.shade900,
+        ),
+      ),
       home: const SignUpScreen(),
     );
   }

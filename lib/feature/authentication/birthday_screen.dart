@@ -5,6 +5,7 @@ import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/authentication/widget/form_button.dart';
 import 'package:tictokclone/feature/onboarding/interests_screen.dart';
+import 'package:tictokclone/feature/utils.dart';
 
 class BirthdayScreen extends StatefulWidget {
   const BirthdayScreen({super.key});
@@ -113,7 +114,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        color: isDarkMode(context) ? Colors.grey.shade500 : Colors.white,
         height: 300,
         child: SizedBox(
           height: 300,

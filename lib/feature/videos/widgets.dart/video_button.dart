@@ -22,12 +22,13 @@ class VideoButton extends StatelessWidget {
         FaIcon(
           icon,
           color: Colors.white,
-          size: Sizes.size40,
+          size: Sizes.size32,
         ),
         Gaps.v5,
         Text(
           text,
           style: const TextStyle(
+            fontSize: Sizes.size16,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),

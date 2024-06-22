@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
+import 'package:tictokclone/feature/utils.dart';
 
 class VideoComments extends StatefulWidget {
   const VideoComments({super.key});
@@ -37,6 +38,7 @@ class _VideoCommentsState extends State<VideoComments> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isDark = isDarkMode(context);
     return Container(
       //댓글창의 높이는 여기서 정함
       height: size.height * 0.8,
@@ -45,9 +47,9 @@ class _VideoCommentsState extends State<VideoComments> {
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(Sizes.size14)),
       child: Scaffold(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: isDark ? null : Colors.grey.shade50,
         appBar: AppBar(
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor: isDark ? null : Colors.grey.shade50,
           title: const Text("22796 comments"),
           automaticallyImplyLeading: false,
           actions: [
@@ -79,9 +81,10 @@ class _VideoCommentsState extends State<VideoComments> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CircleAvatar(
+                        CircleAvatar(
                           radius: 18,
-                          child: Text("d"),
+                          backgroundColor: isDark ? Colors.grey.shade600 : null,
+                          child: const Text("d"),
                         ),
                         Gaps.h10,
                         Expanded(
@@ -135,7 +138,6 @@ class _VideoCommentsState extends State<VideoComments> {
                     bottom: Sizes.size10,
                     top: Sizes.size8,
                   ),
-                  color: Colors.white,
                   surfaceTintColor: Colors.white,
                   child: Row(
                     children: [
@@ -165,7 +167,9 @@ class _VideoCommentsState extends State<VideoComments> {
                               borderSide: BorderSide.none,
                             ),
                             filled: true,
-                            fillColor: Colors.grey.shade200,
+                            fillColor: isDark
+                                ? Colors.grey.shade800
+                                : Colors.grey.shade200,
                             contentPadding: const EdgeInsets.symmetric(
                               vertical: Sizes.size12,
                               horizontal: Sizes.size10,
@@ -180,19 +184,19 @@ class _VideoCommentsState extends State<VideoComments> {
                                 children: [
                                   FaIcon(
                                     FontAwesomeIcons.at,
-                                    color: Colors.grey.shade900,
+                                    color: isDark ? Colors.grey.shade500 : Colors.grey.shade900,
                                   ),
-                                  Gaps.v12,
+                                  Gaps.h12,
                                   FaIcon(
                                     FontAwesomeIcons.gift,
-                                    color: Colors.grey.shade900,
+                                    color: isDark ? Colors.grey.shade500 : Colors.grey.shade900,
                                   ),
-                                  Gaps.v12,
+                                  Gaps.h12,
                                   FaIcon(
                                     FontAwesomeIcons.faceSmile,
-                                    color: Colors.grey.shade900,
+                                    color: isDark ? Colors.grey.shade500 : Colors.grey.shade900,
                                   ),
-                                  Gaps.v12,
+                                  Gaps.h12,
                                   if (_isWriting)
                                     GestureDetector(
                                       onTap: _stopWriting,

@@ -9,6 +9,7 @@ import 'package:tictokclone/feature/inbox/inbox_screen.dart';
 import 'package:tictokclone/feature/main_navigation/widget/nav_tap.dart';
 import 'package:tictokclone/feature/main_navigation/widget/post_video_button.dart';
 import 'package:tictokclone/feature/users/user_profile_screen.dart';
+import 'package:tictokclone/feature/utils.dart';
 import 'package:tictokclone/feature/videos/video_timeline_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -47,6 +48,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
+
     return Scaffold(
       //댓글에서 키보드가 나왔을때 안찌그러지도록 하는 것
       resizeToAvoidBottomInset: false,
@@ -73,8 +76,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        surfaceTintColor: _selectedIndex == 0 ? Colors.black : Colors.white,
-        color: _selectedIndex == 0 ? Colors.black : Colors.white,
+        surfaceTintColor:
+            _selectedIndex == 0 || isDark ? Colors.black : Colors.white,
+        color: _selectedIndex == 0 || isDark ? Colors.black : Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

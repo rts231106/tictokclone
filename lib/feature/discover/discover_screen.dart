@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
+import 'package:tictokclone/feature/utils.dart';
 
 final tabs = [
   "Top",
@@ -51,15 +52,18 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             controller: _textEditingController,
             onChanged: _onSearchChaged,
             onSubmitted: _onSearchSubmitted,
+            style: TextStyle(
+              color: isDarkMode(context) ? Colors.white : Colors.black,
+            ),
           ),
           //bottom은 자식요소의 크기를 제한하지 않는 위젯 preferred widget 개념 화인하기 바로 Container는 사용 하지 못한다
           //Tap controller 가 필요
           bottom: TabBar(
+            tabAlignment: TabAlignment.start,
+            padding: EdgeInsets.zero,
             splashFactory: NoSplash.splashFactory,
             isScrollable: true,
             unselectedLabelColor: Colors.grey.shade500,
-            labelColor: Colors.black,
-            indicatorColor: Colors.black,
             labelStyle: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: Sizes.size16,
@@ -117,7 +121,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   //모든 textstyle이 적용된다
                   DefaultTextStyle(
                     style: TextStyle(
-                      color: Colors.grey.shade600,
+                      color: isDarkMode(context)
+                          ? Colors.grey.shade300
+                          : Colors.grey.shade600,
                       fontWeight: FontWeight.w600,
                     ),
                     child: Row(

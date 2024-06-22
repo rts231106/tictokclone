@@ -25,6 +25,11 @@ class TicTok extends StatelessWidget {
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color(0xFFe9435A),
         ),
+        tabBarTheme: TabBarTheme(
+          unselectedLabelColor: Colors.grey.shade500,
+          labelColor: Colors.black,
+          indicatorColor: Colors.black,
+        ),
         //splash 반응이 반영되지 않도록 하는 법(전체적으로)
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
@@ -46,6 +51,9 @@ class TicTok extends StatelessWidget {
         primaryColor: const Color(0xFFe9435A),
       ),
       darkTheme: ThemeData(
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color(0xFFe9435A),
+        ),
         textTheme: Typography.whiteMountainView,
         scaffoldBackgroundColor: Colors.black,
         primaryColor: const Color(0xFFe9435A),
@@ -53,11 +61,15 @@ class TicTok extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.grey.shade900,
         ),
+        tabBarTheme: const TabBarTheme(
+          indicatorColor: Colors.white,
+          labelColor: Colors.white,
+        ),
         bottomAppBarTheme: BottomAppBarTheme(
           color: Colors.grey.shade900,
         ),
       ),
-      home: const SignUpScreen(),
+      home: const MainNavigationScreen(),
     );
   }
 }

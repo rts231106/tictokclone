@@ -20,6 +20,7 @@ class TicTok extends StatelessWidget {
       title: 'TikTok Clone',
       themeMode: ThemeMode.system,
       theme: ThemeData(
+        useMaterial3: true,
         textTheme: Typography.blackMountainView,
         brightness: Brightness.light,
 
@@ -35,6 +36,7 @@ class TicTok extends StatelessWidget {
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         appBarTheme: const AppBarTheme(
+          surfaceTintColor: Colors.white,
           centerTitle: true,
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
@@ -55,6 +57,7 @@ class TicTok extends StatelessWidget {
         primaryColor: const Color(0xFFe9435A),
       ),
       darkTheme: ThemeData(
+        useMaterial3: true,
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color(0xFFe9435A),
         ),
@@ -63,7 +66,13 @@ class TicTok extends StatelessWidget {
         primaryColor: const Color(0xFFe9435A),
         brightness: Brightness.dark,
         appBarTheme: AppBarTheme(
+          surfaceTintColor: Colors.grey.shade900,
           backgroundColor: Colors.grey.shade900,
+          titleTextStyle: const TextStyle(
+            color: Colors.white,
+            fontSize: Sizes.size16 + Sizes.size2,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         tabBarTheme: const TabBarTheme(
           indicatorColor: Colors.white,

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/widgets.dart';
 import 'package:tictokclone/constants/sizes.dart';
-import 'package:tictokclone/feature/authentication/sign_up_screen.dart';
-import 'package:tictokclone/feature/main_navigation/main_navigation_screen.dart';
-import 'package:tictokclone/feature/videos/video_recording_screen.dart';
-import 'package:tictokclone/feature/videos/video_timeline_screen.dart';
+
+import 'package:tictokclone/router.dart';
 
 void main() {
   runApp(const TicTok());
@@ -16,7 +14,8 @@ class TicTok extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig : router,
       title: 'TikTok Clone',
       themeMode: ThemeMode.system,
       theme: ThemeData(
@@ -82,7 +81,6 @@ class TicTok extends StatelessWidget {
           color: Colors.grey.shade900,
         ),
       ),
-      home: const MainNavigationScreen(),
     );
   }
 }

@@ -2,17 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/authentication/login_form_screen.dart';
+import 'package:tictokclone/feature/authentication/sign_up_screen.dart';
 import 'package:tictokclone/feature/authentication/widget/auth_button.dart';
 import 'package:tictokclone/feature/utils.dart';
 
 class LogInScreen extends StatelessWidget {
+  static String routeName = "/login";
   const LogInScreen({super.key});
 
   void _onSignUpTap(BuildContext context) {
-    Navigator.of(context).pop();
+   context.pop();
+
   }
 
   void _onEamilLoginTap(BuildContext context) {

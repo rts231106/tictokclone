@@ -3,6 +3,7 @@ import 'package:tictokclone/feature/authentication/email_screen.dart';
 import 'package:tictokclone/feature/authentication/login_screen.dart';
 import 'package:tictokclone/feature/authentication/sign_up_screen.dart';
 import 'package:tictokclone/feature/authentication/username_screen.dart';
+import 'package:tictokclone/feature/users/user_profile_screen.dart';
 
 final router = GoRouter(routes: [
   GoRoute(
@@ -21,4 +22,11 @@ final router = GoRouter(routes: [
     path: EmailScreen.routeName,
     builder: (context, state) => const EmailScreen(),
   ),
+  GoRoute(
+    path: "/users/:username",
+    builder: (context, state) {
+      final username = state.params['username'];
+      return UserProfileScreen(username:username!);
+    },
+  )
 ]);

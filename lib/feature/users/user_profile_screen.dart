@@ -7,7 +7,9 @@ import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/users/widgets/persistentTabBar.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key});
+  final String username;
+
+  const UserProfileScreen({super.key, required this.username});
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -26,8 +28,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               return [
                 SliverAppBar(
                   centerTitle: true,
-                  title: const Text(
-                    "dong",
+                  title: Text(
+                    widget.username,
                   ),
                   actions: [
                     IconButton(
@@ -43,26 +45,26 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   child: Column(
                     children: [
                       Gaps.v20,
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 30,
                         foregroundColor: Colors.red,
                         child: Text(
-                          "dong",
+                          widget.username,
                         ),
                       ),
                       Gaps.v20,
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "@dong",
-                            style: TextStyle(
+                            "@${widget.username}",
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: Sizes.size16,
                             ),
                           ),
                           Gaps.h5,
-                          FaIcon(
+                          const FaIcon(
                             FontAwesomeIcons.circleCheck,
                             size: Sizes.size16,
                             color: Colors.blue,

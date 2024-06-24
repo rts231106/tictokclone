@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/authentication/email_screen.dart';
@@ -27,10 +28,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
       setState(() {
         _username = _usernameController.text;
       });
-    })
-    
-    
-    ;
+    });
   }
 
   @override
@@ -41,8 +39,11 @@ class _UsernameScreenState extends State<UsernameScreen> {
 
   void _onNextTap() {
     if (_username.isEmpty) return;
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const EmailScreen()),
+    context.push(
+      EmailScreen.routeName,
+      extra: EmailScreenArgs(
+        username: _username,
+      ),
     );
   }
 

@@ -12,7 +12,8 @@ import 'package:tictokclone/feature/authentication/widget/auth_button.dart';
 import 'package:tictokclone/feature/utils.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static const routeName = "/";
+  static const routeURL = "/";
+  static const routeName = "signUp";
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) {
@@ -21,7 +22,7 @@ class SignUpScreen extends StatelessWidget {
   }
 
   void _onEmailTap(BuildContext context) {
-    context.push(UsernameScreen.routeName);
+    context.pushNamed(UsernameScreen.routeName);
   }
 
   @override

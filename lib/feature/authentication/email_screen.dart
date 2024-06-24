@@ -4,16 +4,18 @@ import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/authentication/password_screen.dart';
 import 'package:tictokclone/feature/authentication/widget/form_button.dart';
+
 class EmailScreenArgs {
   final String username;
   EmailScreenArgs({required this.username});
 }
 
 class EmailScreen extends StatefulWidget {
+  static String routeURL = "email";
   static String routeName = "/email";
+
   final String username;
   const EmailScreen({super.key, required this.username});
-  
 
   @override
   State<EmailScreen> createState() => _EmailScreenState();
@@ -87,9 +89,9 @@ class _EmailScreenState extends State<EmailScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Gaps.v20,
-               Text(
+              Text(
                 "What is your email, ${widget.username}?",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: Sizes.size24,
                   fontWeight: FontWeight.w700,
                 ),

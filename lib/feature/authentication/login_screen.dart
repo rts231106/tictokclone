@@ -11,7 +11,9 @@ import 'package:tictokclone/feature/authentication/widget/auth_button.dart';
 import 'package:tictokclone/feature/utils.dart';
 
 class LogInScreen extends StatelessWidget {
+  static String routeURL = "/login";
   static String routeName = "/login";
+  
   const LogInScreen({super.key});
 
   void _onSignUpTap(BuildContext context) {

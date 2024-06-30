@@ -9,6 +9,7 @@ import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/authentication/username_screen.dart';
 import 'package:tictokclone/feature/authentication/login_screen.dart';
 import 'package:tictokclone/feature/authentication/widget/auth_button.dart';
+import 'package:tictokclone/feature/main_navigation/main_navigation_screen.dart';
 import 'package:tictokclone/feature/utils.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -18,11 +19,17 @@ class SignUpScreen extends StatelessWidget {
 
   void _onLoginTap(BuildContext context) {
     // context.go 사용자를 이동 시키는 것인데 Push와 다르게 back 버튼이 없어서 고객이 다시 뒤로 돌아가지 못
-    context.push(LogInScreen.routeName);
+    context.push(LogInScreen.routeURL);
   }
 
   void _onEmailTap(BuildContext context) {
-    context.pushNamed(UsernameScreen.routeName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const MainNavigationScreen(),
+      ),
+    );
+    /* context.pushNamed(UsernameScreen.routeName);*/
   }
 
   @override

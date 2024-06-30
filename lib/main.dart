@@ -1,11 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tictokclone/constants/sizes.dart';
+import 'package:tictokclone/firebase_options.dart';
 
 import 'package:tictokclone/router.dart';
 
-void main() {
+void main() async {
   runApp(const TicTok());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class TicTok extends StatelessWidget {
@@ -15,7 +20,7 @@ class TicTok extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig : router,
+      routerConfig: router,
       title: 'TikTok Clone',
       themeMode: ThemeMode.system,
       theme: ThemeData(

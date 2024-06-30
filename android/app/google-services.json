@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "720159266790",
+    "project_id": "tictok-tarin-nomad-abc",
+    "storage_bucket": "tictok-tarin-nomad-abc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720159266790:android:905f09dfcc20f77abda827",
+        "android_client_info": {
+          "package_name": "com.example.tictokclone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvp82025hlD0fVwuHABgiJz-h5lneOrog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

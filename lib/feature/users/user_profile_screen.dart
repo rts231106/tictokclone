@@ -4,19 +4,27 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
+import 'package:tictokclone/feature/setting/settings_screen.dart';
 import 'package:tictokclone/feature/users/widgets/persistentTabBar.dart';
 
 class UserProfileScreen extends StatefulWidget {
   final String username;
   final String tab;
 
-  const UserProfileScreen({super.key, required this.username, required this.tab});
+  const UserProfileScreen(
+      {super.key, required this.username, required this.tab});
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  void _onSettingTap() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const SettingsScreen(),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +43,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ),
                   actions: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: _onSettingTap,
                       icon: const FaIcon(
                         FontAwesomeIcons.gear,
                         size: Sizes.size20,

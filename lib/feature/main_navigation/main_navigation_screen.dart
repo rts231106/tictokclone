@@ -10,7 +10,7 @@ import 'package:tictokclone/feature/main_navigation/widget/nav_tap.dart';
 import 'package:tictokclone/feature/main_navigation/widget/post_video_button.dart';
 import 'package:tictokclone/feature/users/user_profile_screen.dart';
 import 'package:tictokclone/feature/utils.dart';
-import 'package:tictokclone/feature/videos/video_timeline_screen.dart';
+import 'package:tictokclone/feature/videos/views/video_timeline_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});

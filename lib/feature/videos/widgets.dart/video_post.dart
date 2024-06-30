@@ -68,9 +68,6 @@ class _VideoPostState extends State<VideoPost>
       duration: _animationDuration,
     );
 
-    context
-        .read<PlaybackConfigViewModel>()
-        .addListener(_onPlaybackConfigChanged);
 
     _animationController.addListener(() {
       setState(() {});
@@ -85,8 +82,8 @@ class _VideoPostState extends State<VideoPost>
 
   void _onPlaybackConfigChanged() {
     if (!mounted) return;
-    final muted = context.read<PlaybackConfigViewModel>().muted;
-    if (muted) {
+
+    if (false) {
       _videoPlayerController.setVolume(0);
     } else {
       _videoPlayerController.setVolume(1);
@@ -95,8 +92,8 @@ class _VideoPostState extends State<VideoPost>
 
   void _onVisibilityChanged(VisibilityInfo info) {
     if (info.visibleFraction == 1 && !_videoPlayerController.value.isPlaying) {
-      final autoplay = context.read<PlaybackConfigViewModel>().autoplay;
-      if (autoplay) {
+     
+      if (false) {
         _videoPlayerController.play();
       }
     }
@@ -183,16 +180,14 @@ class _VideoPostState extends State<VideoPost>
             child: IconButton(
               icon: FaIcon(
                 //watch는 업데이트를 받고싶을때 쓰는것
-                context.watch<PlaybackConfigModel>().muted
+                false
                     ? FontAwesomeIcons.volumeOff
                     : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
               ),
               onPressed: () {
                 //fuction 사용자가 누를때마다 현재값의 반대로 set 해줘야함
-                context
-                    .read<PlaybackConfigViewModel>()
-                    .setMuted(!context.read<PlaybackConfigModel>().muted);
+               
               },
             ),
           ),

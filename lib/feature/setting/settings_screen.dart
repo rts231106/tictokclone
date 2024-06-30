@@ -31,14 +31,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         children: [
           SwitchListTile.adaptive(
-            value: context.watch<PlaybackConfigViewModel>().muted,
-            onChanged:(value) => context.read<PlaybackConfigViewModel>().setMuted(value),
+            value: false,
+            onChanged: (value) =>
+                {},
             title: const Text("Enable notifications"),
             subtitle: const Text("They will be cute."),
           ),
           SwitchListTile.adaptive(
-            value: context.watch<PlaybackConfigViewModel>().autoplay,
-            onChanged:(value) => context.read<PlaybackConfigViewModel>().setAutoPlay(value),
+            value: false,
+            onChanged: (value) => {},
             title: const Text("Enable notifications"),
             subtitle: const Text("They will be cute."),
           ),

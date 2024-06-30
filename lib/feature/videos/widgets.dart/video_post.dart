@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tictokclone/common/widget/video_config/video_config.dart';
@@ -12,7 +13,7 @@ import 'package:tictokclone/feature/videos/widgets.dart/video_comments.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class VideoPost extends StatefulWidget {
+class VideoPost extends ConsumerStatefulWidget {
   final Function onVideoFinished;
 
   final int index;
@@ -24,10 +25,10 @@ class VideoPost extends StatefulWidget {
   });
 
   @override
-  State<VideoPost> createState() => _VideoPostState();
+  VideoPostState createState() => VideoPostState();
 }
 
-class _VideoPostState extends State<VideoPost>
+class VideoPostState extends ConsumerState<VideoPost>
     with SingleTickerProviderStateMixin {
   late final VideoPlayerController _videoPlayerController;
 
@@ -82,8 +83,7 @@ class _VideoPostState extends State<VideoPost>
 
   void _onPlaybackConfigChanged() {
     if (!mounted) return;
-
-    if (false) {
+    if (ref.read(playbackConfigProvider).muted) {
       _videoPlayerController.setVolume(0);
     } else {
       _videoPlayerController.setVolume(1);
@@ -93,7 +93,7 @@ class _VideoPostState extends State<VideoPost>
   void _onVisibilityChanged(VisibilityInfo info) {
     if (info.visibleFraction == 1 && !_videoPlayerController.value.isPlaying) {
      
-      if (false) {
+      if (ref.read(playbackConfigProvider).autoplay) {
         _videoPlayerController.play();
       }
     }
@@ -180,15 +180,14 @@ class _VideoPostState extends State<VideoPost>
             child: IconButton(
               icon: FaIcon(
                 //watch는 업데이트를 받고싶을때 쓰는것
-                false
+                ref.watch(playbackConfigProvider).muted
                     ? FontAwesomeIcons.volumeOff
                     : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
               ),
-              onPressed: () {
-                //fuction 사용자가 누를때마다 현재값의 반대로 set 해줘야함
-               
-              },
+              onPressed: 
+               _onPlaybackConfigChanged,
+              
             ),
           ),
           const Positioned(

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:tictokclone/common/widget/video_config/video_config.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -10,6 +11,7 @@ class SettingsScreen extends StatefulWidget {
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
+
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _notifications = false;
   void _onNotificationsChanged(bool? newValue) {
@@ -18,6 +20,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _notifications = newValue;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,12 +28,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: const Text('Settings'),
       ),
       body: ListView(
-        children: [ AnimatedBuilder(
-            animation: videoConfig,
-            builder: (context, child) => SwitchListTile.adaptive(
-              value: videoConfig.autoMute,
+        children: [
+          ValueListenableBuilder(
+            valueListenable:videoConfig,
+            builder: (context,value, child) => SwitchListTile.adaptive(
+              value: value,
               onChanged: (value) {
-                videoConfig.toggleAutoMute();
+                videoConfig.value = !videoConfig.value;
               },
               title: const Text("Mute video"),
               subtitle: const Text("Videos will be muted by default."),

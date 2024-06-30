@@ -13,24 +13,21 @@ import 'package:tictokclone/firebase_options.dart';
 import 'package:tictokclone/router.dart';
 
 void main() async {
-
-    final preferences = await SharedPreferences.getInstance();
+  WidgetsFlutterBinding.ensureInitialized();
+  final preferences = await SharedPreferences.getInstance();
   final repository = PlaybackCOnfigRepository(preferences);
-  
-  runApp(MultiProvider(
-    providers:  [
-ChangeNotifierProvider(
-  create: (context) => PlaybackConfigViewModel(repository),
-  ),
 
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => PlaybackConfigViewModel(repository),
+      ),
     ],
     child: const TicTok(),
   ));
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-
 }
 
 class TicTok extends StatelessWidget {

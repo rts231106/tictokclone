@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:tictokclone/common/widget/video_config/video_config.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
+import 'package:tictokclone/feature/videos/models/playback_config_model.dart';
+import 'package:tictokclone/feature/videos/view_models/playback_config_vm.dart';
 import 'package:tictokclone/feature/videos/widgets.dart/video_button.dart';
 import 'package:tictokclone/feature/videos/widgets.dart/video_comments.dart';
 import 'package:video_player/video_player.dart';
@@ -66,6 +68,10 @@ class _VideoPostState extends State<VideoPost>
       duration: _animationDuration,
     );
 
+    context
+        .read<PlaybackConfigViewModel>()
+        .addListener(_onPlaybackConfigChanged);
+
     _animationController.addListener(() {
       setState(() {});
     });
@@ -77,9 +83,22 @@ class _VideoPostState extends State<VideoPost>
     super.dispose();
   }
 
+  void _onPlaybackConfigChanged() {
+    if (!mounted) return;
+    final muted = context.read<PlaybackConfigViewModel>().muted;
+    if (muted) {
+      _videoPlayerController.setVolume(0);
+    } else {
+      _videoPlayerController.setVolume(1);
+    }
+  }
+
   void _onVisibilityChanged(VisibilityInfo info) {
     if (info.visibleFraction == 1 && !_videoPlayerController.value.isPlaying) {
-      _videoPlayerController.play();
+      final autoplay = context.read<PlaybackConfigViewModel>().autoplay;
+      if (autoplay) {
+        _videoPlayerController.play();
+      }
     }
     if (_videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
       _onTogglePause();
@@ -163,13 +182,17 @@ class _VideoPostState extends State<VideoPost>
             top: 40,
             child: IconButton(
               icon: FaIcon(
-                false
+                //watch는 업데이트를 받고싶을때 쓰는것
+                context.watch<PlaybackConfigModel>().muted
                     ? FontAwesomeIcons.volumeOff
                     : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
               ),
               onPressed: () {
-                
+                //fuction 사용자가 누를때마다 현재값의 반대로 set 해줘야함
+                context
+                    .read<PlaybackConfigViewModel>()
+                    .setMuted(!context.read<PlaybackConfigModel>().muted);
               },
             ),
           ),

@@ -26,7 +26,7 @@ class SignUpScreen extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const MainNavigationScreen(),
+        builder: (context) => const UsernameScreen(),
       ),
     );
     /* context.pushNamed(UsernameScreen.routeName);*/

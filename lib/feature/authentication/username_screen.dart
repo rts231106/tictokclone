@@ -8,7 +8,7 @@ import 'package:tictokclone/feature/authentication/widget/form_button.dart';
 
 class UsernameScreen extends StatefulWidget {
   static String routeName = "email";
-  static String routeURL = "email";
+  static String routeURL = "/email";
   const UsernameScreen({super.key});
 
   @override
@@ -40,10 +40,12 @@ class _UsernameScreenState extends State<UsernameScreen> {
 
   void _onNextTap() {
     if (_username.isEmpty) return;
-    context.pushNamed(
-      EmailScreen.routeName,
-      extra: EmailScreenArgs(
-        username: _username,
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EmailScreen(
+          username: _username,
+        ),
       ),
     );
   }

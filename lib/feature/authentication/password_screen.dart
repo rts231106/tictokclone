@@ -3,21 +3,23 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/authentication/birthday_screen.dart';
 import 'package:tictokclone/feature/authentication/password_screen.dart';
+import 'package:tictokclone/feature/authentication/view_models/signup_view_models.dart';
 import 'package:tictokclone/feature/authentication/widget/form_button.dart';
 
-class PasswordScreen extends StatefulWidget {
+class PasswordScreen extends ConsumerStatefulWidget  {
   const PasswordScreen({super.key});
 
   @override
-  State<PasswordScreen> createState() => _PasswordScreenState();
+  ConsumerState<PasswordScreen> createState() => _PasswordScreenState();
 }
 
-class _PasswordScreenState extends State<PasswordScreen> {
+class _PasswordScreenState extends ConsumerState<PasswordScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   String _password = "";
@@ -54,6 +56,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
   //next를 누르거나 키보드 done 누를때 다음 화면으로 넘어가는 메서드
   void _onSubmit() {
     if (!_ispasswordValid()) return;
+    final state = ref.read(signUpform.notifier).state;
+    ref.read(signUpform.notifier).state = {...state,"password": _password};
     Navigator.push(
       context,
       MaterialPageRoute(

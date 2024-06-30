@@ -15,6 +15,10 @@ import 'package:tictokclone/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  
   final preferences = await SharedPreferences.getInstance();
   final repository = PlaybackCOnfigRepository(preferences);
 
@@ -35,14 +39,14 @@ void main() async {
   );
 }
 
-class TicTok extends StatelessWidget {
+class TicTok extends ConsumerWidget {
   const TicTok({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return MaterialApp.router(
-      routerConfig: router,
+      routerConfig: ref.watch(routerProvider),
       title: 'TikTok Clone',
       themeMode: ThemeMode.system,
       theme: ThemeData(

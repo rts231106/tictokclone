@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
 import 'package:tictokclone/feature/authentication/password_screen.dart';
+import 'package:tictokclone/feature/authentication/view_models/signup_view_models.dart';
 import 'package:tictokclone/feature/authentication/widget/form_button.dart';
 
 class EmailScreenArgs {
@@ -10,18 +12,17 @@ class EmailScreenArgs {
   EmailScreenArgs({required this.username});
 }
 
-class EmailScreen extends StatefulWidget {
-  static String routeURL = "email";
-  static String routeName = "/email";
+class EmailScreen extends ConsumerStatefulWidget {
+
 
   final String username;
   const EmailScreen({super.key, required this.username});
 
   @override
-  State<EmailScreen> createState() => _EmailScreenState();
+  EmailScreenState createState() => EmailScreenState();
 }
 
-class _EmailScreenState extends State<EmailScreen> {
+class EmailScreenState extends ConsumerState<EmailScreen> {
   final TextEditingController _emailController = TextEditingController();
 
   String _email = "";
@@ -62,6 +63,8 @@ class _EmailScreenState extends State<EmailScreen> {
   //next를 누르거나 키보드 done 누를때 다음 화면으로 넘어가는 메서드
   void _onSubmit() {
     if (_email.isEmpty || _isEmailValid() != null) return;
+    
+    ref.read(signUpform.notifier).state = {"email": _email};
 
     Navigator.push(
       context,

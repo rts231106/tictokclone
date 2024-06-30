@@ -13,6 +13,7 @@ import 'package:tictokclone/feature/utils.dart';
 import 'package:tictokclone/feature/videos/views/video_timeline_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
+  
   const MainNavigationScreen({super.key});
 
   @override

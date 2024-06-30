@@ -10,6 +10,8 @@ import 'package:tictokclone/feature/discover/discover_screen.dart';
 import 'package:tictokclone/feature/utils.dart';
 
 class ActivityScreen extends StatefulWidget {
+  static const String routeName = "activity";
+  static const String routeURL = "/activity";
   const ActivityScreen({super.key});
 
   @override
@@ -168,9 +170,11 @@ class _ActivityScreenState extends State<ActivityScreen>
                       width: Sizes.size52,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color:isDark ? Colors.grey.shade800 : Colors.white,
+                        color: isDark ? Colors.grey.shade800 : Colors.white,
                         border: Border.all(
-                          color: isDark ? Colors.grey.shade800 : Colors.grey.shade400,
+                          color: isDark
+                              ? Colors.grey.shade800
+                              : Colors.grey.shade400,
                           width: Sizes.size1,
                         ),
                       ),
@@ -183,7 +187,7 @@ class _ActivityScreenState extends State<ActivityScreen>
                     title: RichText(
                       text: TextSpan(
                         text: "Account updates: ",
-                        style:  TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: isDark ? null : Colors.black,
                           fontSize: Sizes.size16,
@@ -222,9 +226,9 @@ class _ActivityScreenState extends State<ActivityScreen>
           SlideTransition(
             position: _panelAnimation,
             child: Container(
-              decoration:  BoxDecoration(
-                color: Theme.of(context).appBarTheme.backgroundColor ,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: Theme.of(context).appBarTheme.backgroundColor,
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(
                     Sizes.size4,
                   ),

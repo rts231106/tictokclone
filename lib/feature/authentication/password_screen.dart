@@ -56,8 +56,8 @@ class _PasswordScreenState extends ConsumerState<PasswordScreen> {
   //next를 누르거나 키보드 done 누를때 다음 화면으로 넘어가는 메서드
   void _onSubmit() {
     if (!_ispasswordValid()) return;
-    final state = ref.read(signUpform.notifier).state;
-    ref.read(signUpform.notifier).state = {...state,"password": _password};
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {...state,"password": _password};
     Navigator.push(
       context,
       MaterialPageRoute(

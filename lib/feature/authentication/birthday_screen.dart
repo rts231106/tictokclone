@@ -39,17 +39,8 @@ class _BirthdayScreenState extends ConsumerState<BirthdayScreen> {
   }
 
   void _onNextTap() {
-    ref.read(signUpProvider.notifier).signUp();
-    /* Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const InterestScreen(),
-          ),
-          (route) {
-            print(route);
-            return false;
-          },
-        );*/
+    ref.read(signUpProvider.notifier).signUp(context);
+
   }
 
   @override

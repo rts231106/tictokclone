@@ -1,36 +1,35 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
+import 'package:tictokclone/feature/authentication/view_models/login_view_model.dart';
 import 'package:tictokclone/feature/authentication/widget/form_button.dart';
 import 'package:tictokclone/feature/onboarding/interests_screen.dart';
 
-class LoginFormScreen extends StatefulWidget {
+class LoginFormScreen extends ConsumerStatefulWidget {
   const LoginFormScreen({super.key});
 
   @override
-  State<LoginFormScreen> createState() => _LoginFormScreenState();
+  ConsumerState<LoginFormScreen> createState() => _LoginFormScreenState();
 }
 
-class _LoginFormScreenState extends State<LoginFormScreen> {
+class _LoginFormScreenState extends ConsumerState<LoginFormScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final Map<String, String> _formdata = {};
+  
+  Map<String, String> formData = {};
 
   void _onSubmitTap() {
     // 첫번째 방법
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const InterestScreen(),
-          ),
-          (route) {
-            print(route);
-            return false;
-          },
-        );
+        ref.read(loginProvider.notifier).login(
+              formData["email"]!,
+              formData["password"]!,
+              context,
+            );
       }
     }
     /* 
@@ -68,7 +67,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   },
                   onSaved: (newValue) {
                     if (newValue != null) {
-                      _formdata['email'] = newValue;
+                      formData['email'] = newValue;
                     }
                   },
                 ),
@@ -82,15 +81,15 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   },
                   onSaved: (newValue) {
                     if (newValue != null) {
-                      _formdata['password'] = newValue;
+                      formData['password'] = newValue;
                     }
                   },
                 ),
                 Gaps.v28,
                 GestureDetector(
                   onTap: _onSubmitTap,
-                  child: const FormButton(
-                    disabled: false,
+                  child:  FormButton(
+                    disabled:  ref.watch(loginProvider).isLoading,
                   ),
                 ),
               ],

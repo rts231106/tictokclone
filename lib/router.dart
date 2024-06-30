@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tictokclone/feature/authentication/email_screen.dart';
 import 'package:tictokclone/feature/authentication/login_screen.dart';
 import 'package:tictokclone/feature/authentication/repos/authentication_repo.dart';
 import 'package:tictokclone/feature/authentication/sign_up_screen.dart';
-import 'package:tictokclone/feature/authentication/username_screen.dart';
 import 'package:tictokclone/feature/inbox/activity_scree.dart';
 import 'package:tictokclone/feature/main_navigation/main_navigation_screen.dart';
 import 'package:tictokclone/feature/onboarding/interests_screen.dart';
-import 'package:tictokclone/feature/users/user_profile_screen.dart';
-import 'package:tictokclone/feature/videos/view_models/timeline_view_model.dart';
 import 'package:tictokclone/feature/videos/views/video_recording_screen.dart';
 
 final routerProvider = Provider((ref) {
-//  ref.watch(authState);
+  //인 상태가 변화될때  rebuild 될것이고 자동으로 redirect가 될 것이다. 로그인 상태를 알려줌
+  //ref.watch(authState);
   return GoRouter(
     initialLocation: "/home",
     redirect: (context, state) {

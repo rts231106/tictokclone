@@ -35,7 +35,7 @@ class SignUpScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -72,13 +72,15 @@ class SignUpScreen extends ConsumerWidget {
                 ),
               ),
               Gaps.v12,
-              GestureDetector(
-                onTap:() => ref.read(socialAuthProvider.notifier).githubSignIn(context),
-                 child: AuthButton(
-                  text: "Continue with Github",
-                  icon: FaIcon(FontAwesomeIcons.github),
-                               ),
-               ),
+                    GestureDetector(
+                      onTap: () => ref
+                          .read(socialAuthProvider.notifier)
+                          .githubSingIn(context),
+                      child: const AuthButton(
+                        icon: FaIcon(FontAwesomeIcons.github),
+                        text: "Continue with Github",
+                ),
+              ),
             ],
           ),
         ),

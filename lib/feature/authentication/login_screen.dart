@@ -68,12 +68,12 @@ class LogInScreen extends ConsumerWidget {
                 ),
               ),
               Gaps.v12,
-              GestureDetector(
+                GestureDetector(
                 onTap: () =>
-                    ref.read(socialAuthProvider.notifier).githubSignIn(context),
+                    ref.read(socialAuthProvider.notifier).githubSingIn(context),
                 child: const AuthButton(
-                  text: "Continue with Github",
                   icon: FaIcon(FontAwesomeIcons.github),
+                  text: "Continue with Github",
                 ),
               ),
             ],

@@ -14,7 +14,7 @@ class SocialAuthViewModel extends AsyncNotifier<void> {
     _repository = ref.read(authRepo);
   }
 
-  Future<void> githubSignIn(BuildContext context) async {
+  Future<void> githubSingIn(BuildContext context) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(
       () async => await _repository.githubSignIn(),

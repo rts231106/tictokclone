@@ -29,10 +29,31 @@ export const onVideoCreated = functions.firestore
 //어디에 저장할지 정할것
 `/tmp/${snapshot.id}.jpg`,
     ]);
+    //우리가 ffmpeg로 추출한 썸네일 URL을 영상에 넣어주는걸로 
     const storage = admin.storage();
-    await storage.bucket().upload(  `/tmp/${snapshot.id}.jpg`,{destination:`thumbnails/${snapshot.id}.jpg`,
+    const[file,_] =  await storage.bucket().upload(  `/tmp/${snapshot.id}.jpg`,
+      {
+      destination:`thumbnails/${snapshot.id}.jpg`,
 
     });
+    //공개 파일 만들기 
+    await file.makePublic();
+    await snapshot.ref.update({thumbnailUrl: file.publicUrl() });
+    const db = admin.firestore();
+
+    await db
+    //user폴더로 가서 
+    .collection("users")
+    //비디오를 만든 사용자를 찾는다
+    .doc(video.creatorUid)
+    //사용자 내에 collection을 만들어서 
+    .collection("videos")
+    //만들어진 영상의 id를 가지고 document를 만들어서 
+    .doc(snapshot.id)
+    .set({ 
+      thumbnailUrl: file.publicUrl(),
+      videoId: snapshot.id,
+    })
   });
 
 

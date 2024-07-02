@@ -51,6 +51,7 @@ dependencies:
   cloud_firestore: ^5.0.2
   firebase_storage: ^12.1.0
   shared_preferences: ^2.2.3
+  cloud_functions: ^5.0.2
 
 
 dev_dependencies:

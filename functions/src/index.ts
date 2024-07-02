@@ -1,19 +1,20 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
 
-import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+admin.initializeApp();
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
+//firestore 이벤트를 listen하고 있음 
+export const onVideoCreated = functions.firestore
+  .document("videos/{videoId}")
+  //snapshot은 방금 만들어진 영상을 의미함 
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+  .onCreate(async (snapshot, context) => {
+    //ref을 써야 실제 document로 접근 가능 
+    await snapshot.ref.update({ hello: "from functions" });
+  });
+
+
+
+
+
+

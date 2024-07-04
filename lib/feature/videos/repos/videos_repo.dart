@@ -23,11 +23,26 @@ class VideosRepository {
     await _db.collection("videos").add(data.toJson());
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>>  fetchVideos() {
-    return _db.collection("videos").orderBy(
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos(
+    {int? lastItemCreatedAt}
+  ) {
+    //페이지 1에서 비디오를 가져오는 코드 
+    final query = _db
+        .collection("videos")
+        .orderBy(
           "createdAt",
           descending: true,
-        ).get();
+        )
+        //2개까지만 리미트 한다
+        .limit(2);
+    if (lastItemCreatedAt == null) {
+      return query
+          //여기 리스트는 orderby가 된 모든 것들의 필드임
+          .get();
+    } else {
+     //다른 페이지에서 가져오는 비디오 
+      return query.startAfter([lastItemCreatedAt]).get();
+    }
   }
 }
 

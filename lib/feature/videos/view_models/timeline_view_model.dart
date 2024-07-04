@@ -7,12 +7,31 @@ import 'package:tictokclone/feature/videos/repos/videos_repo.dart';
 //API 로부터 얻어온 값을 제공할 것이기 때문에 AsyncNotifier을 사용한다.
 class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
   late final VideosRepository _repository;
-   List<VideoModel> _list = [];
+  List<VideoModel> _list = [];
 
+  //아래 메서드의 역할은 비디오들을 가져오는것
+  Future<List<VideoModel>> _fetchVideos({
+    int? lastItemCreatedAt,
+  }) async {
+    _repository = ref.read(videosRepo);
+
+    final result =
+        await _repository.fetchVideos(lastItemCreatedAt: lastItemCreatedAt);
+
+    final videos = result.docs.map(
+      (doc) => VideoModel.fromJson(
+        doc.data(),
+      ),
+    );
+    return videos.toList();
+  }
+
+//비디오를 리턴하는 메서드
   @override
   FutureOr<List<VideoModel>> build() async {
     _repository = ref.read(videosRepo);
-    final result = await _repository.fetchVideos();
+    //첫번째 page를 원한다는 걸 의미함 우리가 넘겨받은 페이지가 없을 때 이 메서드를 build 메서드에서 호출함
+    final result = await _repository.fetchVideos(lastItemCreatedAt: null);
     //map은 새로운 것을 생성함
     //result에 있는 모든 documents 대해서 (video) => 1 함수들을 실행함 ==> 리스트에 모두 1이 들어감
     //무엇을 리턴하든지 newList에 넣을 거다
@@ -22,9 +41,17 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
         doc.data(),
       ),
     );
-    _list = newList.toList();
+    _list = await _fetchVideos(lastItemCreatedAt: null);
 
     return _list;
+  }
+
+  fetchNextPage() async {
+    //데이터에 실제로 뭘 해줄지 선택할수 있다???
+    final nextPage =
+        await _fetchVideos(lastItemCreatedAt: _list.last.createdAt);
+        //모든 데이터가 도착했을때 state를 새로운 state로 교체한다 
+    state = AsyncValue.data([..._list, ...nextPage]);
   }
 }
 

@@ -58,16 +58,20 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
             displacement: 50,
             edgeOffset: 20,
             color: Theme.of(context).primaryColor,
+            //여러개의 비디오를 빌드하는 PageView.builder
             child: PageView.builder(
-              controller: _pageController,
-              scrollDirection: Axis.vertical,
-              onPageChanged: _onPageChanged,
-              itemCount: videos.length,
-              itemBuilder: (context, index) => VideoPost(
-                onVideoFinished: _onVideoFinished,
-                index: index,
-              ),
-            ),
+                controller: _pageController,
+                scrollDirection: Axis.vertical,
+                onPageChanged: _onPageChanged,
+                itemCount: videos.length,
+                itemBuilder: (context, index) {
+                  final videoData = videos[index];
+                  return VideoPost(
+                    onVideoFinished: _onVideoFinished,
+                    index: index,
+                    videoData: videoData,
+                  );
+                }),
           ),
           error: (error, stackTrace) => Center(
             child: Text(

@@ -46,7 +46,9 @@ class UploadVideoViewModel extends AsyncNotifier<void> {
               ),
             );
 
-            context.pushReplacement("/home");
+            context.pop();
+
+            context.pop();
           }
         } catch (e) {
           // Firestore 예외 처리

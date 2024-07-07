@@ -17,10 +17,11 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
 
     final result =
         await _repository.fetchVideos(lastItemCreatedAt: lastItemCreatedAt);
-
+// 우리에게 데이터를 보내고 있지만 데이터에 id를 만들어야함 
     final videos = result.docs.map(
       (doc) => VideoModel.fromJson(
-        doc.data(),
+        json: doc.data(),
+        videoId : doc.id,
       ),
     );
     return videos.toList();
@@ -30,6 +31,8 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
   @override
   FutureOr<List<VideoModel>> build() async {
     _repository = ref.read(videosRepo);
+
+    /*
     //첫번째 page를 원한다는 걸 의미함 우리가 넘겨받은 페이지가 없을 때 이 메서드를 build 메서드에서 호출함
     final result = await _repository.fetchVideos(lastItemCreatedAt: null);
     //map은 새로운 것을 생성함
@@ -41,17 +44,26 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
         doc.data(),
       ),
     );
+    */
     _list = await _fetchVideos(lastItemCreatedAt: null);
 
     return _list;
   }
 
-  fetchNextPage() async {
+  Future<void> fetchNextPage() async {
     //데이터에 실제로 뭘 해줄지 선택할수 있다???
     final nextPage =
         await _fetchVideos(lastItemCreatedAt: _list.last.createdAt);
-        //모든 데이터가 도착했을때 state를 새로운 state로 교체한다 
+    //모든 데이터가 도착했을때 state를 새로운 state로 교체한다
     state = AsyncValue.data([..._list, ...nextPage]);
+  }
+
+  Future<void> refresh() async {
+    //새로고침할때 현재 페이지에 대해서는 신경쓰지 않는다.
+    final videos = await _fetchVideos(lastItemCreatedAt: null);
+    _list = videos;
+    //새로고침할때 state를 교체하고 싶
+    state = AsyncData(videos);
   }
 }
 

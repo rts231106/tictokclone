@@ -1,14 +1,14 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:tictokclone/common/widget/video_config/video_config.dart';
 import 'package:tictokclone/constants/gaps.dart';
 import 'package:tictokclone/constants/sizes.dart';
-import 'package:tictokclone/feature/videos/models/playback_config_model.dart';
 import 'package:tictokclone/feature/videos/models/video_model.dart';
 import 'package:tictokclone/feature/videos/view_models/playback_config_vm.dart';
+import 'package:tictokclone/feature/videos/view_models/video_post_view_models.dart';
 import 'package:tictokclone/feature/videos/widgets.dart/video_button.dart';
 import 'package:tictokclone/feature/videos/widgets.dart/video_comments.dart';
 import 'package:video_player/video_player.dart';
@@ -50,12 +50,23 @@ class VideoPostState extends ConsumerState<VideoPost>
     }
   }
 
+  void _onLikeTap() {
+    // provider를 여기서 비디  Id로 초기화 하고 싶음 
+    // 외부 데이터를 가져오는 인자들로 provider를 초기화 시킴 
+    ref.read(videoPostProvider(widget.videoData.id).notifier).likeVideo();
+  }
+
+
   void _initVideoPlayer() async {
     _videoPlayerController =
         VideoPlayerController.asset("lib/assets/video/Nvd.mp4");
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
+    if (kIsWeb) {
+      await _videoPlayerController.setVolume(0);
+    }
     _videoPlayerController.addListener(_onVideoChange);
+
     setState(() {});
   }
 
@@ -229,9 +240,11 @@ class VideoPostState extends ConsumerState<VideoPost>
                   child: Text(widget.videoData.creator),
                 ),
                 Gaps.v24,
-                const VideoButton(
-                  icon: FontAwesomeIcons.solidHeart,
-                  text: "2.9M",
+                GestureDetector(
+                  child: const VideoButton(
+                    icon: FontAwesomeIcons.solidHeart,
+                    text: "2.9M",
+                  ),
                 ),
                 Gaps.v24,
                 GestureDetector(

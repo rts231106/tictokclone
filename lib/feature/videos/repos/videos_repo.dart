@@ -24,9 +24,8 @@ class VideosRepository {
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos(
-    {int? lastItemCreatedAt}
-  ) {
-    //페이지 1에서 비디오를 가져오는 코드 
+      {int? lastItemCreatedAt}) {
+    //페이지 1에서 비디오를 가져오는 코드
     final query = _db
         .collection("videos")
         .orderBy(
@@ -40,9 +39,17 @@ class VideosRepository {
           //여기 리스트는 orderby가 된 모든 것들의 필드임
           .get();
     } else {
-     //다른 페이지에서 가져오는 비디오 
+      //다른 페이지에서 가져오는 비디오
       return query.startAfter([lastItemCreatedAt]).get();
     }
+  }
+
+  Future<void> likeVideo(String videoId,String userId) async {
+  
+    _db.collection("likes").add({
+      "videoId": videoId,
+      "userId" : userId
+    });
   }
 }
 

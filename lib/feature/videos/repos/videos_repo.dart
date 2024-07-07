@@ -44,12 +44,22 @@ class VideosRepository {
     }
   }
 
-  Future<void> likeVideo(String videoId,String userId) async {
-  
-    _db.collection("likes").add({
-      "videoId": videoId,
-      "userId" : userId
-    });
+  Future<void> likeVideo(String videoId, String userId) async {
+    //수백만개의 ID가 있을경우 모든 건을 탐색하기 땜누에 비용이 많이든다
+/*    await _db.collection("likes").where(
+          "videoId",
+          isEqualTo: videoId,
+        ).where(userId,isEqualTo: userId,);
+
+        */
+        //특정 collection의 특정 아이디를 위한 쿼리  firestore 방식으로 생각할때 
+    final query = _db.collection("likes").doc("${videoId}000$userId");
+    final like = await query.get();
+    if (!like.exists) {
+      await query.set({
+        "createdAt": DateTime.now().millisecondsSinceEpoch,
+      });
+    }
   }
 }
 

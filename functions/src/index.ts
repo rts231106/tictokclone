@@ -62,6 +62,29 @@ export const onVideoCreated = functions.firestore
     })
   });
 
+  export const onLikedCreated = functions.firestore
+  .document("likes/{likeId}")
+  .onCreate(async (snapshot,context)=> { 
+    const db = admin.firestore();
+    // 컬렉션에서 video 아이디를 찾고 좋아요 개수를 증가시킨다. 
+    const [videoId,_]=snapshot.id.split("000");
+    await db.collection("videos").doc(videoId).update({ 
+      likes: admin.firestore.FieldValue.increment(1),
+    });
+
+  } );
+
+  export const onLikedRemoved = functions.firestore
+  .document("likes/{likeId}")
+  .onDelete(async (snapshot,context)=> { 
+    const db = admin.firestore();
+    // 컬렉션에서 video 아이디를 찾고 좋아요 개수를 증가시킨다. 
+    const [videoId,_]=snapshot.id.split("000");
+    await db.collection("videos").doc(videoId).update({ 
+      likes: admin.firestore.FieldValue.increment(-1),
+    });
+
+  } );
 
 
 

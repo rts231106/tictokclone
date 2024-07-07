@@ -52,13 +52,15 @@ class VideosRepository {
         ).where(userId,isEqualTo: userId,);
 
         */
-        //특정 collection의 특정 아이디를 위한 쿼리  firestore 방식으로 생각할때 
+    //특정 collection의 특정 아이디를 위한 쿼리  firestore 방식으로 생각할때
     final query = _db.collection("likes").doc("${videoId}000$userId");
     final like = await query.get();
     if (!like.exists) {
       await query.set({
         "createdAt": DateTime.now().millisecondsSinceEpoch,
       });
+    } else {
+      await query.delete();
     }
   }
 }
